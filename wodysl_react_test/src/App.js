@@ -16,12 +16,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Sign from './react/Sign';
 import Gpt from './react/Gpt';
 
-  
-
 function App() {
-
-  
-
   return (
     <div className="App">
     <BrowserRouter>
