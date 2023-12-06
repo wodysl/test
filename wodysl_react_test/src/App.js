@@ -1,15 +1,13 @@
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'; // 아이콘 임포트
 import React, { Component, useRef, useEffect, useState} from "react";
-import ReactDOM from 'react-dom'
-import Snowfall from 'react-snowfall'
 
-mongoose.connect('mongodb+srv://honghwarang:45fkd62dus@cluster0.sti7z1m.mongodb.net/?retryWrites=true&w=majority',{
-    useNewUrlParser : true, useUnifiedTopology : true
-}).then(()=>console.log("MongoDB Connect"))
-    .catch(err=>console.log(err))
+// mongoose.connect('mongodb+srv://honghwarang:45fkd62dus@cluster0.sti7z1m.mongodb.net/?retryWrites=true&w=majority',{
+//     useNewUrlParser : true, useUnifiedTopology : true
+// }).then(()=>console.log("MongoDB Connect"))
+//     .catch(err=>console.log(err))
 
-mongoose.set('strictQuery', true);
+// mongoose.set('strictQuery', true);
 
   
 
@@ -72,15 +70,15 @@ function App() {
 //     };
 // }, []);
 
-const [isSignUpMode, setIsSignUpMode] = useState(false);
+// const [isSignUpMode, setIsSignUpMode] = useState(false);
 
-const handleSignUpClick = () => {
-  setIsSignUpMode(true);
-};
+// const handleSignUpClick = () => {
+//   setIsSignUpMode(true);
+// };
 
-const handleSignInClick = () => {
-  setIsSignUpMode(false);
-};
+// const handleSignInClick = () => {
+//   setIsSignUpMode(false);
+// };
 
   return (
     <>
@@ -150,7 +148,7 @@ const handleSignInClick = () => {
                 <div className="content">
                     <h3>계정이 없으신가요 ?</h3>
                     <p>계정이 없으시다면 간단한 회원가입으로 채팅 서비스를 누려보세요 !</p>
-                    <button className="btn transparent" id="sign-up-btn" onClick={handleSignUpClick}>Sign up</button>
+                    <button className="btn transparent" id="sign-up-btn">Sign up</button>
                 </div>
 
                 <img src="" className="image" alt=""/>
@@ -160,20 +158,13 @@ const handleSignInClick = () => {
                 <div className="content">
                     <h3>이미 계정이 있으신가요 ?</h3>
                     <p>로그인하여 채팅 서비스를 무료로 누리세요 !</p>
-                    <button className="btn transparent" id="sign-in-btn" onClick={handleSignInClick}>Sign in</button>
+                    <button className="btn transparent" id="sign-in-btn">Sign in</button>
                 </div>
 
                 <img src="" className="image" alt=""/>
             </div>
         </div>
     </div>
-
-
-    <Snowfall
-  color="#fff"
-  style={{ background: '#fff' }}
-  snowflakeCount={200}
-/>
     </>
   ); 
 }
