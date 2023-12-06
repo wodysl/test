@@ -10,7 +10,7 @@ import openai
 #js 연결인자
 import sys
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 def check(response, wrate = 1324.43,
           prompt_rate = 0.0015, completion_rate = 0.002):
@@ -34,7 +34,7 @@ def main(query):
     messages = [
       # {'role':'user','content': prompt_input},
       {'role':'user','content': query},
-      {'role':'system', 'content':'간단 설명 부탁해'}
+      {'role':'system', 'content':'80자 내로 간략하게 부탁해'}
       # {'role':'assistant', 'content':assistant_msg}
     ]
   )
