@@ -1,4 +1,4 @@
-import './App.css';
+import '../css/Sign.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'; // 아이콘 임포트
 import React, { Component, useRef, useEffect, useState} from "react";
 
