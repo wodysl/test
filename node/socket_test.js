@@ -1,28 +1,51 @@
+//express
 const express = require('express');
 const app = express();
-
 const port = 8080;
 const server = app.listen(port, function(){
     console.log('Listening on '+ port)
 });
 
+//socket
 const SocketIO = require('socket.io');
 const io = SocketIO(server, {path: '/socket.io'});
+
+// 채팅방 목록
+const chatRooms = {};
 
 io.on('connection', function(socket){
     console.log(socket.id, ' connected...');
 
-    //채팅방에 입장시 모두에게 입장 메세지를 전송
-    io.emit('msg', `${socket.id} has entered the chatroom.`);
+    // 클라이언트가 특정 채팅방에 입장 요청
+    socket.on('joinRoom', (roomName) => {
+        socket.join(roomName);
 
-    //채팅 전송시 발송자를 제외하고 모두에게 전송
-    socket.on('msg', function(data){
-        console.log(socket.id, ': ', data);
-        socket.broadcast.emit('msg', `${socket.id}: ${data}`);
+        // 채팅방이 없으면 생성
+        if (!chatRooms[roomName]) {
+        chatRooms[roomName] = [];
+        }
+
+        // 해당 채팅방에 현재 유저 입장 메시지 전송
+        // io.to(roomName).emit('message', { user: 'System', text: `${socket.id} has joined ${roomName}` });
+        // io.to(roomName).emit('message', `${socket.id} 님이 ${roomName}에 입장하셨습니다앙.`);
+        io.to(roomName).emit('message', { user: 'System', text: `${socket.id} has joined ${roomName}` });
     });
 
-    //채팅 연결해제시 모두에게 퇴장 메세지를 전송
-    socket.on('disconnect', function(data){
-        io.emit('msg', `${socket.id} has left the chatroom`);
+    //채팅 전송시 발송자를 제외하고 모두에게 전송
+    socket.on('sendMessage', function({room, message}){
+        console.log("[",room, "] ", socket.id, ': ', message);
+        // io.to(room).emit('message', `${socket.id}님이 전송 >> ${message}`);
+        io.to(room).emit('message', { user: socket.id, text: message });
+    });
+
+    socket.on('leaveRoom', (roomName) => {
+        //나감 전송 
+        // io.to(roomName).emit('message', `${socket.id} 님이 나갔습니다.`);
+        io.to(roomName).emit('message', { user: 'System', text: `${socket.id} has left ${roomName}` });
+    });
+
+    //연결 끊기
+    socket.on('disconnect', function(){
+        console.log("8080포트 연결 끊음");
     });
 });

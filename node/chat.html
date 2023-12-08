@@ -4,91 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>socket.io를 이용한 채팅</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        .msgLine {
-            margin: 15px;
-            color: #fff;
-        }
-        .msgBox {
-            border: 1px solid black;
-            background: black;
-            padding: 2px 5px;
-            border-radius: 10px;
-        }
-        #chatContent {
-            border: 1px solid #000;
-            width: 100%;
-            height: 200px;
-            margin-bottom: 10px;
-            overflow-y: auto;
-        }
-        #myChat {
-            width: 100%;
-        }
-        #msg, #myChat {
-            width: 80%;
-            height: 32px;
-            border-radius: 8px;
-        }
-        #send {
-            width: 16%;
-            height: 34px;
-            border-radius: 50px;
-            background: black;
-            color: white;
-        }
-    </style>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
-    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.js"></script> -->
     <h1>Message</h1>
-    <div id="chatContent">
+    <div id="chat" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll;"></div>
 
-    </div>
-    <input type="text" id="myChat">
-    <input type="submit" id="send" value="Send">
+    <input type="text" id="message">
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="leaveRoom()">Leave Room</button>
 </body>
 <script>
     var socket = io.connect('http://localhost:8080', 
-        //{path: '/socket.io'}
         {transports: ['websocket']});
-    
-    
-    socket.on('msg', function(data){
-        var msgLine = $('<div class="msgLine">');
-        var msgBox = $('<div class="msgBox">');
-        msgBox.append(data);
-        msgBox.css('display', 'inline-block');
-        msgLine.append(msgBox);
-        $('#chatContent').append(msgLine);
 
-        chatContent.scrollTop = chatContent.scrollHeight;
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomName = urlParams.get('room');
+
+    /*
+    function joinRoom() {
+        const roomName = document.getElementById('roomName').value;
+        socket.emit('joinRoom', roomName);
+    }*/
+
+    function sendMessage() {
+        //const roomName = document.getElementById('roomName').value;
+        const message = document.getElementById('message').value;
+        socket.emit('sendMessage', { room: roomName, message });
+    }
+
+
+    function leaveRoom() {
+        //const roomName = document.getElementById('roomName').value;
+        socket.emit('leaveRoom', roomName);
+    }
+
+    socket.on('message', (data) => {
+        const chatDiv = document.getElementById('chat');
+        chatDiv.innerHTML += `<p><strong>${data.user}:</strong> ${data.text}</p>`;
+        chatDiv.scrollTop = chatDiv.scrollHeight;
     });
-
-    document.getElementById('myChat').addEventListener('keyup', function(event) {
-      if (event.keyCode === 13 && this.value !== "") {
-          var msgLine = document.createElement('div');
-          msgLine.classList.add('msgLine');
-          
-          var msgBox = document.createElement('div');
-          msgBox.classList.add('msgBox');
-          msgBox.textContent = this.value;
-          msgBox.style.display = 'inline-block';
-          
-          msgLine.style.textAlign = 'right';
-          msgLine.appendChild(msgBox);
-          
-          document.getElementById('chatContent').appendChild(msgLine);
-          
-          socket.emit('msg', this.value);
-          
-          this.value = "";
-          document.getElementById('chatContent').scrollTop = document.getElementById('chatContent').scrollHeight;
-      }
-  });
 </script>
 </html>

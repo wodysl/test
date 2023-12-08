@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+  <h1>방 입력</h1>
+  방 >> <input type="text" id="roomName">
+  <button type="submit" onclick="joinRoom()">입장</button>
+</body>
+<script>
+  var socket = io.connect('http://localhost:8080', 
+    {transports: ['websocket']});
+
+  function joinRoom() {
+    const roomName = document.getElementById('roomName').value;
+    socket.emit('joinRoom', roomName);
+
+    //채팅 페이지로 이동
+    window.location.href = `./chat.html?room=${roomName}`;
+  }
+</script>
+</html>
