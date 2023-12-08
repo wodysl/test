@@ -1,40 +1,87 @@
 import '../css/Sign.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'; // 아이콘 임포트
-import React, { useState } from "react";
-
-  
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Sign() {
+        const navigate = useNavigate();
+        const [state, setState] = useState({
+          id: "",
+          pwd: "",
+        });
+      
+        const handleChange = (e) => {
+          setState({
+            ...state,
+            [e.target.name]: e.target.value,
+          });
+        };
+      
+        const submitId = () => {
+          const post = {
+            id: state.id,
+            pwd: state.pwd,
+          };
+      
+          fetch("http://localhost:4000/Sign", {
+            method: "post",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(post),
+          })
+            .then((res) => res.json())
+            .then((json) => {
+              if (json.cheked == true)
+              {
+                alert("로그인 성공")
+                navigate('/ChatRoom');
+      
+              } else{
+                alert("아이디 또는 비밀번호가 틀렸습니다.")
+              }      
+              setState({
+                ...state,
+                message: json.message,
+              });
+            })
+            .catch((error) => {
+              setState({
+                ...state,
+                message: error.message,
+              });
+            });
+        };
+    
+// ------------------------------------------------------------------------------------------
 
-const [isSignUpMode, setIsSignUpMode] = useState(false);
+    const [isSignUpMode, setIsSignUpMode] = useState(false);
 
-const uphandleClick = () => {
-  // Sign Up 버튼 클릭 시 상태를 토글
-  setIsSignUpMode(true);
-};
+    const uphandleClick = () => {
+    // Sign Up 버튼 클릭 시 상태를 토글
+    setIsSignUpMode(true);
+    };
 
-const inhandleClick = () => {
-  // Sign In 버튼 클릭 시 상태를 토글
-  setIsSignUpMode(false);
-};
-
-    // 클릭하면 container 클래스가 container sign-up-mode로 클래스 이름으로 바껴야됨
+    const inhandleClick = () => {   // 클릭하면 container 클래스가 container sign-up-mode로 클래스 이름으로 바껴야됨
+    // Sign In 버튼 클릭 시 상태를 토글
+    setIsSignUpMode(false);
+    };
 
   return (
       <div className={`container ${isSignUpMode ? 'sign-up-mode' : ''}`}>
         <div className="forms-container">
             <div className="signin-signup">
-                <form action="" className="sign-in-form">
+                <form action="" className="sign-in-form" >
                     <h2 className="title">Sign in</h2>
                     <div className="input-field">
                         <i className="fas fa-user"></i>
-                        <input type="text" placeholder="Username" />
+                        <input type="text" id="id" name="id" placeholder="Username" required onChange={handleChange}/>
                     </div>
                     <div className="input-field">
                         <i className="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" />
+                        <input type="password" id="pwd" name="pwd" placeholder="Password" required onChange={handleChange}/>
                     </div>
-                    <input type="submit" value="Login" className="btn solid"/>
+                    <input type="button" value="Login" className="btn solid" onClick={submitId}/>
 
                     <p className="social-text">sdfsodfsdfsfsfdsfsdfs</p>
                     <div className="social-media">
@@ -54,17 +101,17 @@ const inhandleClick = () => {
                     <h2 className="title">Sign up</h2>
                     <div className="input-field">
                         <i className="fas fa-user"></i>
-                        <input type="text" placeholder="Username" />
+                        <input type="text" id="id" placeholder="Username"/>
                     </div>
                     <div className="input-field">
                         <i className="fas fa-lock"></i>
-                        <input type="password" placeholder="Password"  />
+                        <input type="password" id="pw" placeholder="Password" />
                     </div>
                     <div className="input-field">
                         <i className="fas fa-lock"></i>
-                        <input type="password" placeholder="Re_Password" />
+                        <input type="password" id="pwc" placeholder="Re_Password" />
                     </div>
-                    <input type="submit" value="Login" className="btn solid"/>
+                    <input type="button" value="Sign Up" className="btn solid"  />
 
                     <p className="social-text">sdfsodfsdfsfsfdsfsdfs</p>
                     <div className="social-media">
@@ -106,4 +153,5 @@ const inhandleClick = () => {
     </div>
   ); 
 }
+
 export default Sign;
