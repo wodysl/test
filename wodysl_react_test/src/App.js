@@ -14,6 +14,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import Sign from './react/Sign';
 import Gpt from './react/Gpt';
+import Chat from './react/Chat';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
 
           <Route path="/gpt" element={<Gpt />} />
           <Route path="/sign" element={<Sign />} />
+          <Route path="/chat" element={<Chat />} />
         </Routes>
       </BrowserRouter>
     </div>
