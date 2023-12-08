@@ -9,8 +9,6 @@ import React, { Component, useRef, useEffect, useState} from "react";
 
 // mongoose.set('strictQuery', true);
 
-  
-
 function Sign() {
 
 //   const sign_in_btn = document.querySelector("#sign-in-btn");
