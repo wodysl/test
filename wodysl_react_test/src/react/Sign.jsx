@@ -1,5 +1,7 @@
 import '../css/Sign.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'; // 아이콘 임포트
+import Snowfall from 'react-snowfall';
+
+// import '@fortawesome/fontawesome-free/css/all.min.css'; // 아이콘 임포트
 import React, { Component, useRef, useEffect, useState} from "react";
 
 // mongoose.connect('mongodb+srv://honghwarang:45fkd62dus@cluster0.sti7z1m.mongodb.net/?retryWrites=true&w=majority',{
@@ -97,7 +99,7 @@ function Sign() {
                     </div>
                     <input type="submit" value="Login" className="btn solid"/>
 
-                    <p className="social-text">sdfsodfsdfsfsfdsfsdfs</p>
+                    <p className="social-text">다른 계정으로 로그인</p>
                     <div className="social-media">
                         <a href="#" className="social-icon">
                             <i className="fab fa-facebook-f"></i>
@@ -127,7 +129,7 @@ function Sign() {
                     </div>
                     <input type="submit" value="Login" className="btn solid"/>
 
-                    <p className="social-text">sdfsodfsdfsfsfdsfsdfs</p>
+                    <p className="social-text">다른계정으로 로그인</p>
                     <div className="social-media">
                         <a href="#" className="social-icon">
                             <i className="fab fa-facebook-f"></i>
@@ -151,7 +153,7 @@ function Sign() {
                     <button className="btn transparent" id="sign-up-btn">Sign up</button>
                 </div>
 
-                <img src="" className="image" alt=""/>
+                <img src="winter.jpg" className="image" alt=""/>
             </div>
 
             <div className="panel right-panel">
@@ -160,8 +162,13 @@ function Sign() {
                     <p>로그인하여 채팅 서비스를 무료로 누리세요 !</p>
                     <button className="btn transparent" id="sign-in-btn">Sign in</button>
                 </div>
+                
+            <Snowfall
+              snowflakeCount={100}
+              fallSpeed={0.75}
+              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+            />
 
-                <img src="" className="image" alt=""/>
             </div>
         </div>
     </div>

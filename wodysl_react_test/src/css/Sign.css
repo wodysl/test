@@ -177,6 +177,7 @@ form.sign-in-form {
   box-shadow: 1px 1px 9px 3px #000 inset
 }
 
+
 .image {
   width: 70%;
   transition: transform 1.1s ease-in-out;
@@ -196,6 +197,13 @@ form.sign-in-form {
 .left-panel {
   pointer-events: all;
   padding: 3rem 17% 2rem 12%;
+}
+
+.left-panel .image
+{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .right-panel {
