@@ -171,7 +171,11 @@ form.sign-in-form {
   right: 50%;
   transform: translateY(-50%);
   background-color: #fff;
-  background-image: url(D:\aaa\test\wodysl_react_test\public\house2.jpg);
+  background-image: url(../../public/wood.jpg);
+  background-image: url(../../public/wood2.jpg);
+  background-image: url(../../public/wood3.jpeg);
+  background-image: url(../../public/wood4.jpeg);
+  background-image: url(../../public/wood5.jpeg);
   background-repeat: no-repeat;
   background-size:cover ;
   transition: 1.8s ease-in-out;
@@ -223,13 +227,13 @@ form.sign-in-form {
   font-weight: 600;
   line-height: 1;
   font-size: 1.5rem;
-  font-weight: bold;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 
 .panel p {
   font-size: 0.95rem;
   padding: 0.7rem 0;
-  font-weight: bold;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 
 .btn.transparent {

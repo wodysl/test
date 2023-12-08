@@ -98,7 +98,7 @@ const inhandleClick = () => {
                     <p>계정이 없으시다면 간단한 회원가입으로 채팅 서비스를 누려보세요 !</p>
                     <button className="btn transparent" id="sign-up-btn" onClick={uphandleClick} >Sign up</button>
                 </div>
-                
+
             </div>
 
             <div className="panel right-panel">
