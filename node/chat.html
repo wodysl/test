@@ -8,6 +8,10 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
+    <h1>방 입력</h1>
+    방 >> <input type="text" id="roomName">
+    <button type="submit" onclick="joinRoom()">입장</button>
+    
     <h1>Message</h1>
     <div id="chat" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll;"></div>
 
@@ -22,21 +26,20 @@
     const urlParams = new URLSearchParams(window.location.search);
     const roomName = urlParams.get('room');
 
-    /*
     function joinRoom() {
         const roomName = document.getElementById('roomName').value;
         socket.emit('joinRoom', roomName);
-    }*/
+    }
 
     function sendMessage() {
-        //const roomName = document.getElementById('roomName').value;
+        const roomName = document.getElementById('roomName').value;
         const message = document.getElementById('message').value;
         socket.emit('sendMessage', { room: roomName, message });
     }
 
 
     function leaveRoom() {
-        //const roomName = document.getElementById('roomName').value;
+        const roomName = document.getElementById('roomName').value;
         socket.emit('leaveRoom', roomName);
     }
 
