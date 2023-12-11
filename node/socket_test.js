@@ -6,6 +6,31 @@ const server = app.listen(port, function(){
     console.log('Listening on '+ port)
 });
 
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb://localhost:27017";
+
+// 데이터베이스와 컬렉션 이름
+const dbName = 'wodysl';
+const collectionName = 'chat';
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+}
+});
+
+// Connect the client to the server	(optional starting in v4.7)
+client.connect();
+console.log("connected")
+    
+const database = client.db(dbName);
+const collection = database.collection(collectionName);
+
+
 //socket
 const SocketIO = require('socket.io');
 const io = SocketIO(server, {path: '/socket.io'});
